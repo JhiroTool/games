@@ -1,0 +1,93 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+}
+
+.container h1 {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+#scoreboard {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+#message {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+#board {
+    gap: 10px;
+    padding: 30px;
+    background: #1e3a8a; /* Blue like Connect 4 */
+    border: 10px solid #fbbf24; /* Yellow frame */
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.column {
+    display: flex;
+    flex-direction: column-reverse; /* Pieces drop to bottom */
+    gap: 10px;
+    cursor: pointer;
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fff; /* White holes */
+    border: 3px solid #1e3a8a;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+
+.cell.player1 {
+    background: #ff6b6b;
+    box-shadow: 0 0 10px rgba(255,107,107,0.8);
+}
+
+.cell.player2 {
+    background: #4ecdc4;
+    box-shadow: 0 0 10px rgba(78,205,196,0.8);
+}
+
+.cell.winner {
+    outline: 4px solid #fff176;
+    box-shadow: 0 0 20px rgba(255, 241, 118, 0.9);
+}
+
+.column:hover .cell:last-child {
+    background: #f3f4f6;
+    transform: scale(1.05);
+}
+
+
+.btn-gradient {
+    background: linear-gradient(45deg, #ff6b6b, #ffa500);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-gradient:hover {
+    filter: brightness(1.05);
+    transform: translateY(-2px);
+}
+
+.cell.dropping {
+    animation: drop 0.5s ease-in-out;
+}
+
+@keyframes drop {
+    from {
+        transform: translateY(-300px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

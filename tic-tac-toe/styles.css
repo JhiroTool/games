@@ -1,0 +1,107 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+}
+
+.container h1 {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 120px);
+    grid-template-rows: repeat(3, 120px);
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+}
+
+.cell {
+    width: 120px;
+    height: 120px;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.cell:hover {
+    background: rgba(255,255,255,0.4);
+    transform: scale(1.05);
+}
+
+.cell.x {
+    color: #ff6b6b;
+    animation: pop 0.3s ease;
+}
+
+.cell.o {
+    color: #4ecdc4;
+    animation: pop 0.3s ease;
+}
+
+.cell.winner {
+    background: rgba(255,255,0,0.5);
+    animation: flash 0.5s infinite alternate;
+}
+
+@keyframes pop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+@keyframes flash {
+    0% { background: rgba(255,255,0,0.5); }
+    100% { background: rgba(255,255,0,0.8); }
+}
+
+#reset {
+    padding: 12px 24px;
+    font-size: 18px;
+    cursor: pointer;
+    background: linear-gradient(45deg, #ff6b6b, #ffa500);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+#reset:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+#scoreboard {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+#message {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.btn-gradient {
+    background: linear-gradient(45deg, #ff6b6b, #ffa500);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-gradient:hover {
+    filter: brightness(1.05);
+    transform: translateY(-2px);
+}
