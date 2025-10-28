@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playground Arcade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg-gradient: radial-gradient(circle at 15% 15%, rgba(255, 107, 107, 0.45), transparent 55%), radial-gradient(circle at 85% 20%, rgba(78, 205, 196, 0.45), transparent 55%), radial-gradient(circle at 50% 90%, rgba(255, 165, 0, 0.35), transparent 60%), #0f172a;
+            --glass: rgba(15, 23, 42, 0.65);
+            --text-primary: #f8fafc;
+            --text-secondary: rgba(226, 232, 240, 0.72);
+            --accent: linear-gradient(135deg, #ff6b6b, #f97316);
+            --border: rgba(148, 163, 184, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px clamp(16px, 5vw, 32px) 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px clamp(16px, 5vw, 32px);
+            margin: clamp(16px, 5vw, 24px) auto;
+            max-width: 1100px;
+            width: 100%;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            backdrop-filter: blur(16px);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        .brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-weight: 600;
+            background: var(--accent);
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 12px 32px rgba(249, 115, 22, 0.35);
+        }
+
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(249, 115, 22, 0.45);
+        }
+
+        .hero {
+            display: grid;
+            gap: clamp(28px, 4vw, 56px);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            align-items: center;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            width: clamp(220px, 45vw, 420px);
+            height: clamp(220px, 45vw, 420px);
+            background: radial-gradient(circle at 30% 30%, rgba(78, 205, 196, 0.4), transparent 65%), radial-gradient(circle at 70% 70%, rgba(255, 107, 107, 0.35), transparent 60%);
+            filter: blur(0px);
+            border-radius: 50%;
+            opacity: 0.9;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .hero-card {
+            position: relative;
+            width: clamp(240px, 50vw, 360px);
+            padding: clamp(20px, 4vw, 28px);
+            border-radius: 24px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.55);
+            overflow: hidden;
+        }
+
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            inset: 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            pointer-events: none;
+        }
+
+        .hero-card h3 {
+            margin-top: 0;
+            font-size: clamp(1.4rem, 3vw, 1.7rem);
+        }
+
+        .hero-card p {
+            margin-bottom: 16px;
+            color: rgba(226, 232, 240, 0.74);
+            line-height: 1.6;
+        }
+
+        .inline-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .inline-pills span {
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(99, 102, 241, 0.18);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .halo-badge {
+            position: absolute;
+            top: -18px;
+            right: 18px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-14px) scale(1.02);
+            }
+        }
+
+        .headline {
+            font-size: clamp(2.6rem, 5vw, 3.8rem);
+            margin-bottom: 18px;
+            line-height: 1.08;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: clamp(1rem, 2.3vw, 1.15rem);
+            max-width: 540px;
+            margin-bottom: 28px;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 18px;
+            margin-top: 32px;
+        }
+
+        .metric {
+            background: rgba(15, 23, 42, 0.72);
+            border: 1px solid rgba(148, 163, 184, 0.32);
+            border-radius: 18px;
+            padding: 22px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.04), transparent 55%);
+            mix-blend-mode: screen;
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .card-grid {
+            max-width: 1100px;
+            width: 100%;
+            margin: clamp(40px, 7vw, 96px) auto;
+            display: grid;
+            gap: clamp(28px, 4vw, 40px);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            padding: 0 clamp(16px, 5vw, 32px);
+        }
+
+        .card {
+            position: relative;
+            background: rgba(15, 23, 42, 0.78);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 24px;
+            padding: clamp(26px, 4vw, 34px);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            backdrop-filter: blur(20px);
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(140deg, rgba(255, 255, 255, 0.08), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: rgba(248, 250, 252, 0.55);
+            box-shadow: 0 26px 44px rgba(15, 23, 42, 0.48);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .pill {
+            padding: 7px 16px;
+            border-radius: 999px;
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        .card a {
+            align-self: flex-start;
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--text-primary);
+            transition: background 0.2s ease, transform 0.2s ease;
+            position: relative;
+        }
+
+        .card a::after {
+            content: '→';
+            margin-left: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .card a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .card a:hover::after {
+            transform: translateX(4px);
+        }
+
+        .section-title {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 5vw, 32px);
+            font-size: 1.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: clamp(24px, 5vw, 36px);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(15, 23, 42, 0.45);
+            background: rgba(15, 23, 42, 0.65);
+        }
+
+        .highlight {
+            color: #f97316;
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero {
+                text-align: center;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <span class="brand">Playground Arcade</span>
+        <a href="https://github.com/" target="_blank" rel="noreferrer">View Source</a>
+    </nav>
+    <header>
+        <div class="hero">
+            <div>
+                <h1 class="headline">Casual games crafted with a <span class="highlight">product mindset</span>.</h1>
+                <p class="tagline">A collection of classic board games rebuilt for the web with delightful animations, scoreboard persistence, and thoughtful UX details designed to shine in a portfolio.</p>
+                <a class="cta" href="#projects">Explore the games</a>
+                <div class="metrics">
+                    <div class="metric">
+                        <strong>02</strong>
+                        <span>Playable experiences built with vanilla JavaScript and modern CSS.</span>
+                    </div>
+                    <div class="metric">
+                        <strong>60 fps</strong>
+                        <span>Smooth transitions and micro-interactions across the board.</span>
+                    </div>
+                    <div class="metric">
+                        <strong>Portfolio ready</strong>
+                        <span>Clean structure, reusable components, and room to expand.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <span class="halo-badge">Live UX</span>
+                    <h3>What’s inside?</h3>
+                    <p>Each game is responsive, keyboard-accessible, and remembers your match history through local storage. Thoughtful hover states and subtle motion make the experience feel polished.</p>
+                    <div class="inline-pills">
+                        <span>Vanilla JS</span>
+                        <span>Animation</span>
+                        <span>Responsive UI</span>
+                        <span>Local Storage</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="projects">
+        <h2 class="section-title">Featured projects</h2>
+        <div class="card-grid">
+            <article class="card">
+                <div>
+                    <h3>Connect 4 Arena</h3>
+                    <p>Dynamic drop animations, live previews, and a match tracker turn this childhood favourite into a polished digital experience.</p>
+                </div>
+                <div class="pill-group">
+                    <span class="pill">Interactive physics</span>
+                    <span class="pill">Score persistence</span>
+                    <span class="pill">Responsive layout</span>
+                </div>
+                <a href="connect-4/index.html">Play Connect 4</a>
+            </article>
+            <article class="card">
+                <div>
+                    <h3>Tic-Tac-Toe Studio</h3>
+                    <p>Minimalist grid with celebratory animation, match history tracking, and a refined control panel for players.</p>
+                </div>
+                <div class="pill-group">
+                    <span class="pill">Microinteractions</span>
+                    <span class="pill">History log</span>
+                    <span class="pill">Game analytics</span>
+                </div>
+                <a href="tic-tac-toe/index.html">Play Tic-Tac-Toe</a>
+            </article>
+        </div>
+    </section>
+    <footer>
+        Built as a passion project to showcase front-end craftsmanship. Ready for interviews, code reviews, and plenty of fun.
+    </footer>
+</body>
+</html>
