@@ -1,0 +1,26 @@
+# games
+
+A collection of small browser games built with JavaScript, HTML, and CSS.
+
+Repository language composition:
+- JavaScript: ~44.6%
+- HTML: ~30.6%
+- CSS: ~24.8%
+
+Getting started
+1. Clone the repository:
+   git clone https://github.com/JhiroTool/games.git
+2. Open the game folders in your browser or run a local server. For example, using Python 3:
+   python3 -m http.server 8000
+   Then open http://localhost:8000 in your browser.
+
+Structure
+- /: Root containing game folders and assets.
+- Each game typically contains an index.html, styles.css, and script.js.
+
+Contributing
+- Feel free to open issues or pull requests to add new games or improve existing ones.
+- When adding a new game, include a brief README inside the game's folder describing controls and features.
+
+License
+Include a LICENSE file in the repo to indicate the license. If none is provided, add one (MIT recommended for simple projects).
